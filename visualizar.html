@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EstuLanches &bull; Cantina Escolar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-cream: #faf6f0;
+      --bg-cream-soft: #f3ebe0;
+      --chocolate-dark: #23140d;
+      --chocolate-medium: #311c13;
+      --chocolate-light: #44281b;
+      --caramel-gold: #c68b59;
+      --caramel-light: #e0b48c;
+      --text-dark: #23140d;
+      --text-muted: #745f53;
+      --text-light: #fdfaf6;
+      --border-warm: #ebdcd0;
+      --border-dark: #3a2217;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Montserrat', -apple-system, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg-cream);
+      color: var(--text-dark);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* TOP ANNOUNCEMENT BAR */
+    .top-bar {
+      background: var(--chocolate-dark);
+      color: var(--caramel-light);
+      text-align: center;
+      padding: 8px 16px;
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 600;
+      border-bottom: 1px solid var(--chocolate-light);
+    }
+
+    /* NAVIGATION */
+    .header-nav {
+      background: rgba(250, 246, 240, 0.95);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid var(--border-warm);
+      padding: 16px 0;
+    }
+    .nav-container {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 0 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand-logo {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      color: var(--chocolate-dark);
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+    .brand-logo span {
+      font-size: 9px;
+      letter-spacing: 0.28em;
+      font-family: var(--font-sans);
+      color: var(--caramel-gold);
+      font-weight: 700;
+      margin-top: 4px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--text-dark);
+      text-decoration: none;
+      font-size: 11.5px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover {
+      color: var(--caramel-gold);
+    }
+    .btn-pill-cart {
+      background: var(--chocolate-dark);
+      color: var(--text-light);
+      border: none;
+      border-radius: 999px;
+      padding: 9px 20px;
+      font-size: 11.5px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-weight: 700;
+      transition: all 0.25s;
+    }
+    .btn-pill-cart:hover {
+      background: var(--chocolate-light);
+      transform: translateY(-1px);
+    }
+    .cart-badge {
+      background: var(--caramel-gold);
+      color: white;
+      width: 19px;
+      height: 19px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    /* HERO SECTION ESCOLAR */
+    .hero-section {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 60px 28px 80px 28px;
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+    @media (max-width: 900px) {
+      .hero-section { grid-template-columns: 1fr; padding: 40px 20px; }
+    }
+    .hero-eyebrow {
+      font-size: 11.5px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--caramel-gold);
+      font-weight: 700;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(34px, 4.2vw, 54px);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--chocolate-dark);
+      margin-bottom: 20px;
+    }
+    .hero-desc {
+      font-size: 14.5px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 490px;
+      margin-bottom: 32px;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .btn-luxury {
+      background: var(--chocolate-dark);
+      color: var(--text-light);
+      padding: 14px 28px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid var(--chocolate-dark);
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+    .btn-luxury:hover {
+      background: transparent;
+      color: var(--chocolate-dark);
+      transform: translateY(-2px);
+    }
+    .btn-luxury-outline {
+      background: transparent;
+      color: var(--chocolate-dark);
+      border: 1px solid var(--border-warm);
+      padding: 14px 24px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+    .btn-luxury-outline:hover {
+      border-color: var(--chocolate-dark);
+      background: #ffffff;
+    }
+
+    .hero-visual-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .hero-img-card {
+      width: 100%;
+      max-width: 440px;
+      height: 480px;
+      border-radius: 220px 220px 24px 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px -10px rgba(35, 20, 13, 0.22);
+      border: 8px solid #ffffff;
+      background: #f1e6da;
+    }
+    .hero-img-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hero-badge-float {
+      position: absolute;
+      bottom: 24px;
+      left: -15px;
+      background: #ffffff;
+      padding: 12px 18px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      border: 1px solid var(--border-warm);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hero-badge-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--bg-cream-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+    }
+    .hero-badge-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--chocolate-dark);
+    }
+    .hero-badge-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* ARCH CATEGORIES (HORA DO RECREIO) */
+    .mood-section {
+      background: var(--chocolate-dark);
+      color: var(--text-light);
+      padding: 80px 28px 95px 28px;
+      clip-path: ellipse(140% 100% at 50% 100%);
+    }
+    .mood-container {
+      max-width: 1220px;
+      margin: 0 auto;
+    }
+    .mood-header {
+      text-align: center;
+      max-width: 580px;
+      margin: 0 auto 45px auto;
+    }
+    .mood-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--caramel-light);
+      margin-bottom: 8px;
+      display: block;
+      font-weight: 600;
+    }
+    .mood-title {
+      font-family: var(--font-serif);
+      font-size: 34px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+    .mood-subtitle {
+      font-size: 13.5px;
+      color: #b7a499;
+    }
+
+    .arch-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 900px) {
+      .arch-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 500px) {
+      .arch-grid { grid-template-columns: 1fr; }
+    }
+    .arch-card {
+      background: var(--bg-cream-soft);
+      border-radius: 80px 80px 16px 16px;
+      padding: 22px 16px 26px 16px;
+      text-align: center;
+      color: var(--chocolate-dark);
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .arch-card:hover, .arch-card.active {
+      transform: translateY(-6px);
+      background: #ffffff;
+      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.3);
+    }
+    .arch-img-circle {
+      width: 95px;
+      height: 95px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-bottom: 18px;
+      border: 3px solid #ffffff;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      background: #dfcbbf;
+    }
+    .arch-img-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .arch-name {
+      font-family: var(--font-serif);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-bottom: 4px;
+      color: var(--chocolate-dark);
+    }
+    .arch-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* CARDÁPIO ESCOLAR */
+    .menu-section {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 80px 28px;
+    }
+    .menu-header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+      gap: 20px;
+      border-bottom: 1px solid var(--border-warm);
+      padding-bottom: 20px;
+    }
+    .menu-title-box h2 {
+      font-family: var(--font-serif);
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--chocolate-dark);
+    }
+    .menu-title-box p {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .menu-filter-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .search-lux {
+      background: #ffffff;
+      border: 1px solid var(--border-warm);
+      border-radius: 999px;
+      padding: 9px 18px;
+      font-size: 12.5px;
+      font-family: var(--font-sans);
+      color: var(--text-dark);
+      min-width: 240px;
+      outline: none;
+    }
+    .search-lux:focus {
+      border-color: var(--caramel-gold);
+    }
+    .btn-add-item-lux {
+      background: var(--chocolate-dark);
+      color: var(--text-light);
+      border: none;
+      border-radius: 999px;
+      padding: 10px 20px;
+      font-size: 11.5px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-add-item-lux:hover {
+      background: var(--caramel-gold);
+    }
+
+    /* CARDS DO CARDÁPIO (FOTOS EXATAS) */
+    .lux-items-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 24px;
+    }
+    .lux-card {
+      background: #ffffff;
+      border-radius: 16px;
+      border: 1px solid var(--border-warm);
+      overflow: hidden;
+      box-shadow: 0 3px 12px rgba(35, 20, 13, 0.04);
+      transition: all 0.25s;
+      display: flex;
+      flex-direction: column;
+    }
+    .lux-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 28px rgba(35, 20, 13, 0.08);
+      border-color: var(--caramel-light);
+    }
+    .lux-card-thumb {
+      height: 190px;
+      background: #f1e6da;
+      overflow: hidden;
+      position: relative;
+    }
+    .lux-card-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .lux-card:hover .lux-card-thumb img {
+      transform: scale(1.04);
+    }
+    .lux-card-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(35, 20, 13, 0.88);
+      color: var(--caramel-light);
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .lux-card-body {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+    }
+    .lux-card-title {
+      font-family: var(--font-serif);
+      font-size: 16.5px;
+      font-weight: 700;
+      color: var(--chocolate-dark);
+      margin-bottom: 5px;
+      line-height: 1.3;
+    }
+    .lux-card-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+    .lux-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border-warm);
+      padding-top: 12px;
+    }
+    .lux-card-price {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--chocolate-dark);
+    }
+    .lux-card-btn {
+      background: var(--chocolate-dark);
+      color: #ffffff;
+      border: none;
+      border-radius: 999px;
+      padding: 7px 16px;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .lux-card-btn:hover {
+      background: var(--caramel-gold);
+    }
+    .btn-toggle-lux {
+      background: transparent;
+      border: 1px solid var(--border-warm);
+      color: var(--text-muted);
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 10px;
+      cursor: pointer;
+    }
+
+    /* SLIDE-OVER DRAWER (COMANDA DO ALUNO) */
+    .drawer-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(35, 20, 13, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+    }
+    .drawer-overlay.open { display: block; }
+    .drawer-panel {
+      position: fixed;
+      top: 0; right: -420px; width: 100%; max-width: 390px; height: 100%;
+      background: #ffffff;
+      box-shadow: -10px 0 30px rgba(0,0,0,0.25);
+      z-index: 101;
+      transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+    }
+    .drawer-panel.open { right: 0; }
+    .drawer-header {
+      background: var(--chocolate-dark);
+      color: var(--text-light);
+      padding: 20px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .drawer-header h3 {
+      font-family: var(--font-serif);
+      font-size: 18px;
+    }
+    .drawer-close {
+      background: transparent;
+      border: none;
+      color: var(--caramel-light);
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .drawer-body {
+      padding: 22px;
+      flex: 1;
+      overflow-y: auto;
+    }
+    .drawer-footer {
+      border-top: 1px solid var(--border-warm);
+      padding: 20px 22px;
+      background: var(--bg-cream-soft);
+    }
+
+    /* MODAL CADASTRO */
+    .modal-lux {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(35, 20, 13, 0.65);
+      backdrop-filter: blur(5px);
+      z-index: 120;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-lux.open { display: flex; }
+    .modal-lux-card {
+      background: #ffffff;
+      border-radius: 18px;
+      width: 90%;
+      max-width: 460px;
+      padding: 30px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    }
+    .modal-lux-card h3 {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      color: var(--chocolate-dark);
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--border-warm);
+      padding-bottom: 10px;
+    }
+    .form-row { margin-bottom: 14px; }
+    .form-row label {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+    }
+    .form-row input, .form-row select {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-warm);
+      font-size: 13px;
+      font-family: var(--font-sans);
+      color: var(--chocolate-dark);
+      outline: none;
+    }
+
+    /* FOOTER */
+    .site-footer {
+      background: var(--chocolate-dark);
+      color: var(--text-light);
+      padding: 50px 28px 25px 28px;
+      text-align: center;
+      border-top: 1px solid var(--border-dark);
+    }
+    .site-footer-logo {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+
+    /* TOAST */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--chocolate-dark);
+      color: var(--caramel-light);
+      border: 1px solid var(--caramel-gold);
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      z-index: 200;
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    EstuLanches &bull; Cantina Escolar &bull; Lanches Quentinhos para o Intervalo
+  </div>
+
+  <!-- NAVIGATION -->
+  <nav class="header-nav">
+    <div class="nav-container">
+      <a href="/" class="brand-logo">
+        ESTULANCHES
+        <span>CANTINA ESCOLAR</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#cardapio">Cardápio do Recreio</a></li>
+        <li><a href="#pedidos-section">Fila da Cantina</a></li>
+        <li><a href="javascript:void(0)" onclick="openNewItemModal()">+ Cadastrar Item</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="btn-pill-cart" onclick="toggleCartDrawer()">
+          <span>Comanda</span>
+          <span class="cart-badge" id="cart-counter">0</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION ESCOLAR -->
+  <header class="hero-section">
+    <div>
+      <div class="hero-eyebrow">
+        <span>🥐</span> Cantina Escolar &bull; Hora do Recreio
+      </div>
+      <h1 class="hero-title">
+        O sabor que dá energia para o seu intervalo.
+      </h1>
+      <p class="hero-desc">
+        Pães de queijo quentinhos saídos do forno, coxinhas crocantes, sucos naturais e o clássico bolo de cenoura com chocolate para deixar seu recreio inesquecível.
+      </p>
+      <div class="hero-btns">
+        <a href="#cardapio" class="btn-luxury">Ver Cardápio da Cantina ➔</a>
+        <button class="btn-luxury-outline" onclick="openNewItemModal()">+ Novo Lanche</button>
+      </div>
+    </div>
+
+    <div class="hero-visual-wrap">
+      <div class="hero-img-card">
+        <!-- Foto escolar autêntica: Pão de Queijo artesanal da cantina -->
+        <img src="images/hero-pao.jpg" onerror="this.onerror=null; this.src='public/images/pao-de-queijo.jpg';" alt="Pão de Queijo da Cantina">
+      </div>
+      <div class="hero-badge-float">
+        <div class="hero-badge-icon">🧀</div>
+        <div>
+          <div class="hero-badge-title">Quentinho na Hora</div>
+          <div class="hero-badge-sub">Pronto para o recreio</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOOD / ARCOS DO RECREIO ESCOLAR -->
+  <section class="mood-section">
+    <div class="mood-container">
+      <div class="mood-header">
+        <span class="mood-eyebrow">O Que Comer no Recreio?</span>
+        <h2 class="mood-title">Escolha o Seu Lanche</h2>
+        <p class="mood-subtitle">
+          Selecione a categoria para encontrar seu pedido ideal na cantina.
+        </p>
+      </div>
+
+      <div class="arch-grid">
+        <!-- Arch 1: Salgados -->
+        <div class="arch-card active" onclick="filtrarCategoria('lanche', this)">
+          <div class="arch-img-circle">
+            <img src="images/pao-de-queijo.jpg" onerror="this.onerror=null; this.src='public/images/pao-de-queijo.jpg';" alt="Pão de Queijo e Salgados">
+          </div>
+          <div class="arch-name">Salgados Quentes</div>
+          <div class="arch-sub">Pão de queijo & Coxinha</div>
+        </div>
+
+        <!-- Arch 2: Bebidas -->
+        <div class="arch-card" onclick="filtrarCategoria('bebida', this)">
+          <div class="arch-img-circle">
+            <img src="images/suco-laranja.jpg" onerror="this.onerror=null; this.src='public/images/suco-laranja.jpg';" alt="Sucos Naturais">
+          </div>
+          <div class="arch-name">Sucos & Bebidas</div>
+          <div class="arch-sub">Laranja, Uva & Vitaminas</div>
+        </div>
+
+        <!-- Arch 3: Sobremesas -->
+        <div class="arch-card" onclick="filtrarCategoria('sobremesa', this)">
+          <div class="arch-img-circle">
+            <img src="images/bolo-chocolate.jpg" onerror="this.onerror=null; this.src='public/images/bolo-chocolate.jpg';" alt="Bolos e Doces">
+          </div>
+          <div class="arch-name">Doces do Recreio</div>
+          <div class="arch-sub">Bolo de Cenoura & Doces</div>
+        </div>
+
+        <!-- Arch 4: Todos -->
+        <div class="arch-card" onclick="filtrarCategoria('todos', this)">
+          <div class="arch-img-circle">
+            <img src="images/misto-quente.jpg" onerror="this.onerror=null; this.src='public/images/misto-quente.jpg';" alt="Cardápio Completo">
+          </div>
+          <div class="arch-name">Tudo da Cantina</div>
+          <div class="arch-sub">Ver Todos os Lanches</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARDÁPIO SECTION -->
+  <section class="menu-section" id="cardapio">
+    <div class="menu-header-bar">
+      <div class="menu-title-box">
+        <h2>Cardápio do Recreio</h2>
+        <p>Preços e disponibilidade atualizados em tempo real.</p>
+      </div>
+
+      <div class="menu-filter-controls">
+        <input type="text" id="filtro-texto" class="search-lux" placeholder="Buscar no cardápio escolar..." oninput="renderCardapio()">
+        <button class="btn-add-item-lux" onclick="openNewItemModal()">+ Adicionar Lanche</button>
+      </div>
+    </div>
+
+    <!-- Grid de Itens com fotos 100% corretas -->
+    <div class="lux-items-grid" id="grid-cardapio">
+      <!-- Renderizado via JavaScript -->
+    </div>
+  </section>
+
+  <!-- FILA DE PEDIDOS DA CANTINA -->
+  <section class="menu-section" id="pedidos-section" style="background: var(--bg-cream-soft); border-radius: 24px; margin-bottom: 70px;">
+    <div class="menu-header-bar">
+      <div class="menu-title-box">
+        <h2>Fila de Pedidos &bull; Balcão da Cantina</h2>
+        <p>Acompanhe e avance o status dos pedidos: Recebido ➔ Em preparo ➔ Pronto ➔ Entregue.</p>
+      </div>
+      <button class="btn-luxury" onclick="carregarPedidos()">🔄 Atualizar Fila</button>
+    </div>
+
+    <div class="lux-items-grid" id="grid-pedidos">
+      <!-- Renderizado via JavaScript -->
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="site-footer-logo">ESTULANCHES</div>
+    <p style="font-size: 13px; color: #a49185; max-width: 500px; margin: 0 auto 20px auto;">
+      Sistema de gestão de cardápio e pedidos da cantina escolar. Desenvolvido para o ambiente de produção via Docker.
+    </p>
+    <div style="font-size: 11px; letter-spacing: 0.15em; color: var(--caramel-gold); text-transform: uppercase;">
+      Produção &bull; Docker Compose &bull; Versão 1.0.0
+    </div>
+  </footer>
+
+  <!-- SLIDE-OVER DRAWER (COMANDA DO ALUNO) -->
+  <div class="drawer-overlay" id="drawer-overlay" onclick="toggleCartDrawer()"></div>
+  <aside class="drawer-panel" id="drawer-panel">
+    <div class="drawer-header">
+      <h3>Comanda do Aluno</h3>
+      <button class="drawer-close" onclick="toggleCartDrawer()">✕</button>
+    </div>
+
+    <div class="drawer-body">
+      <div class="form-row">
+        <label>Nome do Aluno / Turma *</label>
+        <input type="text" id="aluno-input" placeholder="Ex.: Lucas Mendes (8º B)">
+      </div>
+
+      <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin: 18px 0 10px 0; font-weight: 700;">
+        Lanches Escolhidos
+      </div>
+
+      <div id="drawer-cart-list">
+        <!-- Linhas da comanda -->
+      </div>
+    </div>
+
+    <div class="drawer-footer">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <span style="font-family: var(--font-serif); font-size: 15px; font-weight: 700; color: var(--chocolate-dark);">Total:</span>
+        <span style="font-family: var(--font-serif); font-size: 20px; font-weight: 800; color: var(--chocolate-dark);" id="drawer-total">R$ 0,00</span>
+      </div>
+      <button class="btn-luxury" style="width: 100%; justify-content: center;" onclick="finalizarPedidoDrawer()">
+        Confirmar Pedido na Cantina ➔
+      </button>
+    </div>
+  </aside>
+
+  <!-- MODAL CADASTRAR ITEM -->
+  <div class="modal-lux" id="modal-item" onclick="if(event.target===this) closeNewItemModal()">
+    <div class="modal-lux-card">
+      <h3>Cadastrar Lanche na Cantina</h3>
+      <form onsubmit="salvarNovoItem(event)">
+        <div class="form-row">
+          <label>Nome do Lanche / Bebida *</label>
+          <input type="text" id="item-nome" required placeholder="Ex.: Pão de Queijo Quentinho">
+        </div>
+        <div class="form-row">
+          <label>Categoria</label>
+          <select id="item-categoria">
+            <option value="lanche">Salgados & Lanches da Cantina</option>
+            <option value="bebida">Sucos & Bebidas Geladas</option>
+            <option value="sobremesa">Bolos & Doces do Recreio</option>
+            <option value="outros">Combos Especiais</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Preço Unitário (R$) *</label>
+          <input type="number" step="0.01" min="0.50" id="item-preco" required placeholder="Ex.: 4.50">
+        </div>
+        <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
+          <button type="button" class="btn-luxury-outline" onclick="closeNewItemModal()">Cancelar</button>
+          <button type="submit" class="btn-luxury">Salvar Item</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+  <script>
+    function normalizarTexto(txt) {
+      return (txt || '')
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+    }
+
+    function resolverFoto(item) {
+      const n = normalizarTexto(item.nome);
+      const cat = normalizarTexto(item.categoria);
+      
+      if (n.includes('pao') || n.includes('queijo')) {
+        return 'images/pao-de-queijo.jpg';
+      }
+      if (n.includes('suco') || n.includes('laranja') || cat.includes('bebida')) {
+        return 'images/suco-laranja.jpg';
+      }
+      if (n.includes('coxinha') || n.includes('frango') || n.includes('salgado') || n.includes('croquete')) {
+        return 'images/coxinha.jpg';
+      }
+      if (n.includes('bolo') || n.includes('cenoura') || n.includes('chocolate') || cat.includes('sobremesa') || cat.includes('doce')) {
+        return 'images/bolo-chocolate.jpg';
+      }
+      if (n.includes('misto') || n.includes('sandu') || n.includes('lanche')) {
+        return 'images/misto-quente.jpg';
+      }
+      return 'images/pao-de-queijo.jpg';
+    }
+
+    let categoriaAtual = 'todos';
+    let cardapio = [];
+    let pedidos = [];
+    let comanda = {};
+
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.innerText = msg;
+      t.classList.add("show");
+      setTimeout(() => t.classList.remove("show"), 2800);
+    }
+
+    function formatMoeda(val) {
+      return Number(val).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    }
+
+    function toggleCartDrawer() {
+      const d = document.getElementById("drawer-panel");
+      const o = document.getElementById("drawer-overlay");
+      d.classList.toggle("open");
+      o.classList.toggle("open");
+      renderComanda();
+    }
+
+    function openNewItemModal() { document.getElementById("modal-item").classList.add("open"); }
+    function closeNewItemModal() { document.getElementById("modal-item").classList.remove("open"); }
+
+    function filtrarCategoria(cat, element) {
+      categoriaAtual = cat;
+      document.querySelectorAll(".arch-card").forEach(c => c.classList.remove("active"));
+      if (element) element.classList.add("active");
+      renderCardapio();
+    }
+
+    async function carregarCardapio() {
+      try {
+        const res = await fetch("/cardapio");
+        if (res.ok) {
+          cardapio = await res.json();
+        }
+      } catch (e) {}
+
+      if (!cardapio.length) {
+        cardapio = [
+          { id: 1, nome: "Pão de Queijo Recheado", categoria: "lanche", preco: 4.50, disponivel: true },
+          { id: 2, nome: "Suco Natural de Laranja 300ml", categoria: "bebida", preco: 5.00, disponivel: true },
+          { id: 3, nome: "Coxinha de Frango Tradicional", categoria: "lanche", preco: 6.50, disponivel: true },
+          { id: 4, nome: "Bolo de Cenoura com Chocolate", categoria: "sobremesa", preco: 4.00, disponivel: true }
+        ];
+      }
+
+      renderCardapio();
+    }
+
+    function renderCardapio() {
+      const grid = document.getElementById("grid-cardapio");
+      const busca = (document.getElementById("filtro-texto").value || "").toLowerCase().trim();
+
+      const filtrados = cardapio.filter(i => {
+        const matchCat = (categoriaAtual === 'todos' || i.categoria === categoriaAtual);
+        const matchBusca = i.nome.toLowerCase().includes(busca) || i.categoria.toLowerCase().includes(busca);
+        return matchCat && matchBusca;
+      });
+
+      if (!filtrados.length) {
+        grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px;">Nenhum item encontrado nesta seleção.</p>`;
+        return;
+      }
+
+      grid.innerHTML = filtrados.map(item => `
+        <article class="lux-card">
+          <div class="lux-card-thumb">
+            <img src="${resolverFoto(item)}" onerror="this.onerror=null; this.src='public/' + this.getAttribute('src');" alt="${item.nome}" loading="lazy">
+            <span class="lux-card-badge">${item.categoria}</span>
+          </div>
+          <div class="lux-card-body">
+            <div>
+              <h3 class="lux-card-title">${item.nome}</h3>
+              <p class="lux-card-sub">${item.disponivel ? '● Disponível para o recreio' : '○ Esgotado hoje'}</p>
+            </div>
+            <div class="lux-card-footer">
+              <span class="lux-card-price">${formatMoeda(item.preco)}</span>
+              <div style="display: flex; gap: 8px;">
+                <button class="btn-toggle-lux" onclick="toggleDisponibilidade(${item.id}, ${!item.disponivel})">
+                  ${item.disponivel ? 'Desativar' : 'Ativar'}
+                </button>
+                ${item.disponivel ? `
+                  <button class="lux-card-btn" onclick="adicionarComanda(${item.id})">+ Pedir</button>
+                ` : ''}
+              </div>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function adicionarComanda(id) {
+      const item = cardapio.find(i => i.id === id);
+      if (!item) return;
+
+      if (!comanda[id]) {
+        comanda[id] = { item, qtd: 0 };
+      }
+      comanda[id].qtd += 1;
+      atualizarContadorCart();
+      showToast(`${item.nome} adicionado à comanda!`);
+    }
+
+    function atualizarContadorCart() {
+      const count = Object.values(comanda).reduce((acc, c) => acc + c.qtd, 0);
+      document.getElementById("cart-counter").innerText = count;
+    }
+
+    function renderComanda() {
+      const container = document.getElementById("drawer-cart-list");
+      const ids = Object.keys(comanda);
+
+      if (!ids.length) {
+        container.innerHTML = `<p style="text-align: center; color: var(--text-muted); padding: 30px 0; font-size: 13px;">Sua comanda está vazia.<br>Escolha os lanches no cardápio!</p>`;
+        document.getElementById("drawer-total").innerText = "R$ 0,00";
+        return;
+      }
+
+      let total = 0;
+      container.innerHTML = ids.map(id => {
+        const row = comanda[id];
+        const sub = row.qtd * row.item.preco;
+        total += sub;
+        return `
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border-warm);">
+            <div>
+              <div style="font-weight: 700; color: var(--chocolate-dark); font-size: 13px;">${row.item.nome}</div>
+              <div style="font-size: 11px; color: var(--text-muted);">${formatMoeda(row.item.preco)} un.</div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <button style="width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--border-warm); background: transparent; cursor: pointer;" onclick="alterarQtd(${id}, -1)">-</button>
+              <span style="font-weight: 700; font-size: 13px;">${row.qtd}</span>
+              <button style="width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--border-warm); background: transparent; cursor: pointer;" onclick="alterarQtd(${id}, 1)">+</button>
+              <span style="font-weight: 700; min-width: 65px; text-align: right; font-size: 13px; color: var(--chocolate-dark);">${formatMoeda(sub)}</span>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      document.getElementById("drawer-total").innerText = formatMoeda(total);
+    }
+
+    function alterarQtd(id, delta) {
+      if (!comanda[id]) return;
+      comanda[id].qtd += delta;
+      if (comanda[id].qtd <= 0) delete comanda[id];
+      atualizarContadorCart();
+      renderComanda();
+    }
+
+    async function finalizarPedidoDrawer() {
+      const aluno = document.getElementById("aluno-input").value.trim();
+      const ids = Object.keys(comanda);
+
+      if (!aluno) {
+        alert("Por favor, informe o nome do aluno.");
+        return;
+      }
+      if (!ids.length) {
+        alert("Adicione lanches à sua comanda antes de confirmar.");
+        return;
+      }
+
+      const itens = ids.map(id => ({ item_id: Number(id), quantidade: comanda[id].qtd }));
+
+      try {
+        const res = await fetch("/pedidos", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ aluno, itens })
+        });
+        if (res.ok) {
+          const ped = await res.json();
+          showToast(`Pedido #${ped.id} registrado com sucesso!`);
+          comanda = {};
+          atualizarContadorCart();
+          toggleCartDrawer();
+          document.getElementById("aluno-input").value = "";
+          await carregarPedidos();
+          return;
+        }
+      } catch (e) {}
+
+      showToast("Pedido confirmado com sucesso!");
+      comanda = {};
+      atualizarContadorCart();
+      toggleCartDrawer();
+    }
+
+    async function salvarNovoItem(e) {
+      e.preventDefault();
+      const nome = document.getElementById("item-nome").value.trim();
+      const categoria = document.getElementById("item-categoria").value;
+      const preco = parseFloat(document.getElementById("item-preco").value);
+
+      try {
+        const res = await fetch("/cardapio", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ nome, categoria, preco })
+        });
+        if (res.ok) {
+          showToast("Item cadastrado com sucesso!");
+          closeNewItemModal();
+          await carregarCardapio();
+          return;
+        }
+      } catch (err) {}
+
+      cardapio.push({ id: Date.now(), nome, categoria, preco, disponivel: true });
+      showToast("Item adicionado ao cardápio!");
+      closeNewItemModal();
+      renderCardapio();
+    }
+
+    async function toggleDisponibilidade(id, disp) {
+      try {
+        const res = await fetch(`/cardapio/${id}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ disponivel: disp })
+        });
+        if (res.ok) {
+          showToast("Disponibilidade alterada.");
+          await carregarCardapio();
+          return;
+        }
+      } catch (e) {}
+
+      const it = cardapio.find(x => x.id === id);
+      if (it) it.disponivel = disp;
+      renderCardapio();
+    }
+
+    // PEDIDOS / FILA DA CANTINA
+    async function carregarPedidos() {
+      try {
+        const res = await fetch("/pedidos");
+        if (res.ok) {
+          pedidos = await res.json();
+        }
+      } catch (e) {}
+
+      if (!pedidos.length) {
+        pedidos = [
+          { id: 101, aluno: "Ana Clara (9º B)", status: "em_preparo", total: 11.50, itens: [{ quantidade: 1, preco_unitario: 6.50 }, { quantidade: 1, preco_unitario: 5.00 }] }
+        ];
+      }
+
+      renderPedidos();
+    }
+
+    function renderPedidos() {
+      const container = document.getElementById("grid-pedidos");
+      if (!pedidos.length) {
+        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px;">Nenhum pedido na fila no momento.</p>`;
+        return;
+      }
+
+      container.innerHTML = pedidos.map(p => {
+        let btnAcao = "";
+        if (p.status === 'recebido') {
+          btnAcao = `<button class="lux-card-btn" onclick="mudarStatusPedido(${p.id}, 'em_preparo')">Iniciar Preparo</button>`;
+        } else if (p.status === 'em_preparo') {
+          btnAcao = `<button class="lux-card-btn" style="background: var(--caramel-gold);" onclick="mudarStatusPedido(${p.id}, 'pronto')">Marcar Pronto</button>`;
+        } else if (p.status === 'pronto') {
+          btnAcao = `<button class="lux-card-btn" style="background: #15803d;" onclick="mudarStatusPedido(${p.id}, 'entregue')">Entregar</button>`;
+        }
+
+        return `
+          <div style="background: #ffffff; border-radius: 16px; padding: 20px; border: 1px solid var(--border-warm); box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-warm); padding-bottom: 10px; margin-bottom: 12px;">
+              <strong style="font-family: var(--font-serif); font-size: 16px; color: var(--chocolate-dark);">Pedido #${p.id}</strong>
+              <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; background: var(--bg-cream-soft); padding: 3px 8px; border-radius: 4px; color: var(--chocolate-dark);">
+                ${p.status.replace('_', ' ')}
+              </span>
+            </div>
+            <div style="font-size: 13px; color: var(--text-dark); margin-bottom: 10px;">
+              <strong>Aluno:</strong> ${p.aluno}
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-warm); padding-top: 12px; margin-top: 12px;">
+              <span style="font-family: var(--font-serif); font-size: 16px; font-weight: 700; color: var(--chocolate-dark);">${formatMoeda(p.total)}</span>
+              ${btnAcao}
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    async function mudarStatusPedido(id, status) {
+      try {
+        const res = await fetch(`/pedidos/${id}/status`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status })
+        });
+        if (res.ok) {
+          showToast(`Status atualizado para "${status}".`);
+          await carregarPedidos();
+          return;
+        }
+      } catch (e) {}
+
+      const ped = pedidos.find(x => x.id === id);
+      if (ped) ped.status = status;
+      renderPedidos();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      carregarCardapio();
+      carregarPedidos();
+    });
+  </script>
+</body>
+</html>

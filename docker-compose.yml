@@ -1,0 +1,45 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: estulanches-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks: [interna]
+    # Sem "ports": o banco NÃO é exposto fora da rede do compose.
+
+  app:
+    build: .
+    image: estulanches:${APP_VERSION:-1.0.0}
+    container_name: estulanches-app
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      APP_VERSION: ${APP_VERSION:-1.0.0}
+      PORT: 8000
+    ports:
+      - "${APP_PORT:-8000}:8000"
+    volumes:
+      - ./src:/usr/src/app/src
+      - ./public:/usr/src/app/public
+      - ./images:/usr/src/app/images
+      - ./visualizar.html:/usr/src/app/visualizar.html
+    networks: [interna]
+
+volumes:
+  pgdata:
+
+networks:
+  interna:

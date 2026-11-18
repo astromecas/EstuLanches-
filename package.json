@@ -1,0 +1,34 @@
+{
+  "name": "estulanches",
+  "version": "1.0.0",
+  "description": "EstuLanches - Gestão de Cardápio e Pedidos da Cantina Escolar",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node src/server.js",
+    "test": "jest --runInBand",
+    "test:unit": "jest tests/test_unit.test.js",
+    "test:integration": "jest tests/test_integration.test.js"
+  },
+  "keywords": [
+    "estulanches",
+    "cantina",
+    "escola",
+    "docker",
+    "nodejs",
+    "express"
+  ],
+  "author": "Técnico de Implantação",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "pdfkit": "^0.16.0",
+    "pg": "^8.13.3"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  }
+}
