@@ -1,75 +1,50 @@
-# 📋 FICHA SIMPLIFICADA DE REGISTRO DE MUDANÇA (RDM)
-
-> **Sistema:** EstuLanches — Gestão de Cardápio e Pedidos da Cantina Escolar  
-> **Nº da RDM:** `RDM-2026-001` &nbsp;|&nbsp; **Responsável:** Técnico de Implantação  
-> **Classificação:** Mudança Padrão / Implantação Inicial em Produção (Stack: Node.js / Express / PostgreSQL)
+# FICHA SIMPLIFICADA DE REGISTRO DE MUDANÇA (RDM)
+**Sistema:** EstuLanches — gestão de cardápio e pedidos da cantina escolar  
+**Nº RDM-2026-001** | **Data:** 19/11/2026 | **Versão:** 1.0.0  
 
 ---
 
-### 1. Dados Gerais da Implantação
-
-| Parâmetro | Detalhes do Ambiente |
-|:---|:---|
-| **Versão Implantada** | `v1.0.0` (Container App: `node:20-alpine` \| Banco: `postgres:16-alpine`) |
-| **Data e Horário** | **18/11/2026** — Janela: **08:00** às **08:30** (Duração: 30 min) |
-| **Ambiente de Destino** | **Produção** via Docker Compose (Cluster local / Servidor da Cantina) |
-| **Tecnologias Utilizadas** | **Node.js, Express.js, PostgreSQL 16, Jest (Testes)** |
-| **Tipo de Mudança** | Implantação Inicial (First Deploy) |
-| **Impacto no Negócio** | Baixo (Janela planejada antes do intervalo escolar) |
+### 1. DADOS GERAIS DA IMPLANTAÇÃO
+- **Versão implantada:** 1.0.0 — app em node:20-alpine e banco em postgres:16-alpine
+- **Data e janela:** 19/11/2026 — 08:00 às 08:30 (30 min), antes do intervalo escolar
+- **Ambiente de destino:** Produção, via Docker Compose (servidor da cantina)
+- **Tecnologias:** Node.js, Express, PostgreSQL 16, Docker / Docker Compose, Jest + Supertest
+- **Tipo / impacto:** Implantação inicial (first deploy) — impacto baixo para o negócio
 
 ---
 
-### 2. Parâmetros Alterados e Configurações de Produção
-
-| Parâmetro / Recurso | Configuração Aplicada | Justificativa / Política de Segurança |
-|:---|:---:|:---|
-| **Porta da Aplicação (`APP_PORT`)** | `8000:8000` | Única porta pública mapeada para o host. |
-| **Porta do Banco (5432)** | **Não publicada** | Protegida na rede interna privada (`interna`), inacessível externamente. |
-| **Credenciais de Acesso** | Definidas via `.env` | Credenciais fortes isoladas do versionamento Git via `.gitignore`. |
-| **Persistência de Dados** | Volume `pgdata` | Garante integridade do banco relacional entre recriações de containers. |
-| **Política de Recuperação** | `unless-stopped` | Reinício automático em caso de reinicialização do servidor ou falha. |
-| **Privilégios no Container** | Usuário `node` | Execução não-root padrão Alpine em conformidade com DevSecOps. |
-| **Variáveis de Ambiente**| `NODE_ENV=production` | Modo de alta performance sem vazamento de stack traces em produção. |
+### 2. PARÂMETROS ALTERADOS E DEFINIDOS NO AMBIENTE
+- **APP_PORT:** 8000 — Única porta publicada no host; é por onde alunos e cantina acessam.
+- **Porta 5432 (PostgreSQL):** Não publicada — Banco acessível só pela rede interna do Compose; sem exposição externa.
+- **POSTGRES_PASSWORD:** Definida no .env — Senha trocada; .env fora do Git (.gitignore); só o .env.example é versionado.
+- **Volume pgdata:** Nomeado, persistente — Cardápio e pedidos sobrevivem a reinício e recriação dos containers.
+- **restart:** unless-stopped — Serviços voltam sozinhos após queda ou reboot do servidor.
+- **Usuário do container:** node (não-root) — Reduz o impacto de uma eventual invasão (menor privilégio).
+- **NODE_ENV:** production — Modo de produção, sem detalhes de erro expostos ao usuário.
+- **depends_on + healthcheck:** service_healthy — App só sobe depois que o banco aceita conexões; evita falha de inicialização.
 
 ---
 
-### 3. Resultado dos Testes de Validação
-
-| Etapa de Validação | Critério Avaliado | Resultado |
-|:---|:---|:---:|
-| **Testes Unitários (Jest)** | 14 casos de teste (`npm run test:unit`) — Lógica de negócio e cálculos puros | **[X] APROVADO** (14/14) |
-| **Testes de Integração (Supertest)**| 5 casos de teste (`npm run test:integration`) — Fluxos API Express + Banco | **[X] APROVADO** (5/5) |
-| **Estado dos Serviços** | `docker compose ps` — Verificação de *healthstatus* dos containers | **[X] OK** (Serviços saudáveis) |
-| **Auditoria de Portas** | Verificação de isolamento da porta 5432 e abertura exclusiva da 8000 | **[X] OK** (Isolamento confirmado) |
-| **Auditoria de Logs** | `docker compose logs` — Ausência de `ERROR`, `FATAL` ou falhas críticas | **[X] OK** (Logs limpos) |
-| **Smoke Test Operacional**| Verificação de endpoints `/health`, `/cardapio` e `/pedidos` | **[X] OK** (HTTP 200/201) |
-
-> **Nota:** Todos os 19 testes automatizados foram executados e validados com 100% de sucesso via Jest.
+### 3. RESULTADO DOS TESTES DE VALIDAÇÃO
+- **Testes unitários (Jest):** 14 casos: cálculo de pedido, preço, regras de status — [X] APROVADO 14/14
+- **Testes de integração:** 5 casos: API (cardápio e pedidos) com Supertest — [X] APROVADO 5/5
+- **docker compose ps:** Containers db e app em execução e saudáveis — [X] OK
+- **Auditoria de portas:** Só 8000 publicada; 5432 isolada — [X] OK
+- **docker compose logs:** Sem ERROR / FATAL / CRITICAL — [X] OK
+- **Smoke test:** GET /health, GET /cardapio, POST /pedidos — [X] OK (HTTP 200/201)
+- **Persistência:** docker compose restart: dados mantidos — [X] OK
 
 ---
 
-### 4. Plano de Contingência e Retorno (Rollback)
-
-* **Critério de Acionamento:** Inoperância do serviço web ou corrupção na inicialização do PostgreSQL.
-* **Procedimento:** Executar `docker compose down` mantendo o volume `pgdata` intacto. Em caso de necessidade de reset da instalação inicial, executar `docker compose down -v`. Tempo estimado de recuperação: < 3 minutos.
-
----
-
-### 5. Parecer e Status Final da Implantação
-
-**Status Oficial:**
-- [X] **CONCLUÍDA COM SUCESSO**
-- [ ] Concluída com ressalvas
-- [ ] Revertida (Rollback executado)
-
-> **Observações do Técnico:**  
-> A implantação do sistema EstuLanches v1.0.0 (Node.js/Express) foi concluída com êxito. O banco de dados PostgreSQL foi provisionado com volume persistente, os healthchecks confirmaram a disponibilidade dos serviços, a interface web moderna e os testes automatizados foram validados com 100% de taxa de sucesso. Sistema liberado para operação da cantina escolar.
+### 4. PLANO DE RETORNO (ROLLBACK)
+**Gatilho:** serviço web fora do ar ou banco que não inicializa após a implantação.  
+**Ação:** `docker compose down` (mantém o volume pgdata) e novo `docker compose up -d` com a imagem/versão anterior.  
+**Reset total, só se necessário:** `docker compose down -v` (apaga os dados).  
+**Tempo estimado:** menos de 3 minutos.  
 
 ---
 
-### 6. Assinaturas e Aprovações
+### 5. STATUS FINAL DA IMPLANTAÇÃO
+**[X] CONCLUÍDA COM SUCESSO**   [ ] Concluída com ressalvas   [ ] Revertida  
 
-| Responsabilidade | Nome / Função | Assinatura | Data |
-|:---|:---|:---:|:---:|
-| **Executor** | Técnico de Implantação | *Assinado digitalmente* | 18/11/2026 |
-| **Aprovador** | Gestão de Infraestrutura e TI | *Aprovado* | 18/11/2026 |
+**Parecer:** EstuLanches v1.0.0 implantado em produção com Docker Compose. Banco com volume persistente, healthchecks ativos, aplicação sem privilégios de root, apenas a porta 8000 exposta e 19/19 testes automatizados aprovados. Sistema liberado para uso da cantina.
